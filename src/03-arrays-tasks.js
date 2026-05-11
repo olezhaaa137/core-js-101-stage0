@@ -488,8 +488,8 @@ function getIntervalArray(start, end) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return Array.from(new Set(arr));
 }
 
 /**
@@ -522,10 +522,21 @@ function distinct(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
-}
+function group(array, keySelector, valueSelector) {
+  const result = array.reduce((acc, item) => {
+    const mapa = acc;
+    const key = keySelector(item);
+    if (!mapa.has(key)) {
+      mapa.set(key, []);
+    }
+    const value = valueSelector(item);
+    mapa.get(key).push(value);
 
+    return mapa;
+  }, new Map());
+  
+  return result;
+}
 /**
  * Projects each element of the specified array to a sequence
  * and flattens the resulting sequences into one array.
@@ -539,10 +550,13 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const result = arr.reduce(
+    (acc, item) => acc.concat(childrenSelector(item)),
+    []
+  );
+  return result;
 }
-
 /**
  * Returns an element from the multidimensional array by the specified indexes.
  *
