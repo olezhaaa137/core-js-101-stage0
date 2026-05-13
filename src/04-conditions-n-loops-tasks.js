@@ -360,8 +360,39 @@ getDigitalRoot(100);
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (!str) {
+    return true;
+  }
+  const bracketsPairs = {
+    '(': ')',
+    '[': ']',
+    '{': '}',
+    '<': '>',
+  };
+  const closedBrackets = {
+    ')': 1,
+    ']': 2,
+    '}': 3,
+    '>': 4, 
+  };
+  const stack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    if (bracketsPairs[str[i]]) {
+      stack.push(str[i]);
+    }
+    if (closedBrackets[str[i]]) {
+      if (bracketsPairs[stack.pop()] !== str[i]) {
+        return false;
+      }
+    }
+  }
+
+  if (stack.length === 0) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -394,7 +425,8 @@ function toNaryString(num, n) {
   }
 
   return result;
-}toNaryString(6561, 4 );
+}
+toNaryString(6561, 4);
 
 /**
  * Returns the common directory path for specified array of full filenames.
