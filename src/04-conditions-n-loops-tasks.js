@@ -70,8 +70,12 @@ function getFactorial(n) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let result = 0;
+  for (let i = n2; i >= n1; i -= 1) {
+    result += i;
+  }
+  return result;
 }
 
 /**
@@ -89,8 +93,8 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  return a + b > c && a + c > b && b + c > a;
 }
 
 /**
@@ -170,8 +174,11 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  return (
+    str.split('').find((item) => str.indexOf(item) === str.lastIndexOf(item)) ||
+    null
+  );
 }
 
 /**
@@ -196,8 +203,27 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let result = '';
+  if (isStartIncluded) {
+    result = result.concat('[');
+  } else {
+    result = result.concat('(');
+  }
+
+  if (a > b) {
+    result = `${result}${b}, ${a}`;
+  } else {
+    result = `${result}${a}, ${b}`;
+  }
+
+  if (isEndIncluded) {
+    result = result.concat(']');
+  } else {
+    result = result.concat(')');
+  }
+
+  return result;
 }
 
 /**
