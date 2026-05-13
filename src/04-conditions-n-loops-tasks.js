@@ -238,8 +238,8 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -254,8 +254,12 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  let hui = num;
+  hui = `${hui}`;
+  hui = hui.split('').reverse().join('');
+
+  return +hui;
 }
 
 /**
@@ -278,8 +282,24 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  let num = ccn;
+  num = `${num}`.split('').reverse().join('');
+  let sumOfNumbers = 0;
+  for (let i = 0; i < num.length; i += 1) {
+    if (i % 2 === 0) {
+      sumOfNumbers += +num[i];
+    } else {
+      let multOfTwo = +num[i] * 2;
+      if (multOfTwo > 9) {
+        multOfTwo = `${multOfTwo}`
+          .split('')
+          .reduce((sum, item) => sum + +item, 0);
+      }
+      sumOfNumbers += multOfTwo;
+    }
+  }
+  return sumOfNumbers % 10 === 0;
 }
 
 /**
