@@ -316,9 +316,28 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  // let digit = num;
+  // if (digit <= 9) {
+  //   return digit;
+  // }
+  // digit = `${digit}`.split('').reduce((sum, item) => sum + +item, 0);
+
+  // return getDigitalRoot(digit);
+  let digit = num;
+  while (digit > 9) {
+    let sum = 0;
+    while (digit > 0) {
+      sum += digit % 10;
+      digit = Math.floor(digit / 10);
+    }
+
+    digit = sum;
+  }
+
+  return digit;
 }
+getDigitalRoot(100);
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -365,9 +384,17 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
-}
+function toNaryString(num, n) {
+  let digit = num;
+  let result = '';
+  while (digit > 0) {
+    const remainder = digit % n;
+    result = `${remainder}${result}`;
+    digit = Math.floor(digit / n);
+  }
+
+  return result;
+}toNaryString(6561, 4 );
 
 /**
  * Returns the common directory path for specified array of full filenames.
