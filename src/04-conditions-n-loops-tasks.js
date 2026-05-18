@@ -374,7 +374,7 @@ function isBracketsBalanced(str) {
     ')': 1,
     ']': 2,
     '}': 3,
-    '>': 4, 
+    '>': 4,
   };
   const stack = [];
   for (let i = 0; i < str.length; i += 1) {
@@ -440,8 +440,33 @@ toNaryString(6561, 4);
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  if (pathes.length === 0) {
+    return null;
+  }
+  let directories = [];
+  directories = pathes.map((path) => path.split('/'));
+
+  let result = [];
+  const basePath = directories[0];
+  for (let i = 0; i < basePath.length; i += 1) {
+    const currentSegment = basePath[i];
+
+    const isCommon = directories.every((path) => path[i] === currentSegment);
+    if (isCommon) {
+      result.push(currentSegment);
+    } else {
+      break;
+    }
+  }
+  if (result.length === 0) {
+    return '';
+  }
+  result = result.join('/');
+  if (result !== '/') {
+    result = result.concat('/');
+  }
+  return result;
 }
 
 /**
@@ -462,8 +487,22 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  if (m1[0].length !== m2.length) {
+    return null;
+  }
+  const m3 = [];
+  for (let m = 0; m < m1.length; m += 1) {
+    m3[m] = [];
+    for (let p = 0; p < m2[0].length; p += 1) {
+      m3[m][p] = m1[0].reduce(
+        (sum, _, index) => sum + m1[m][index] * m2[index][p],
+        0
+      );
+    }
+  }
+
+  return m3;
 }
 
 /**
